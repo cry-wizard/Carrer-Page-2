@@ -174,7 +174,7 @@ export default function JobDetailsPage() {
 
                <div className="mt-10">
                 {!user ? (
-                  <Link to="/login" className="w-full flex justify-center py-4 btn-premium btn-premium-primary text-white">
+                  <Link to="/login" className="w-full flex justify-center py-4 bg-brand-blue hover:bg-[#0a4f80] text-white rounded-xl text-sm font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
                     Login to Apply
                   </Link>
                 ) : user.role === 'admin' ? (
@@ -195,7 +195,7 @@ export default function JobDetailsPage() {
                       <button 
                         onClick={handleApply}
                         disabled={applyState.loading}
-                        className="w-full flex justify-center py-4 btn-premium btn-premium-primary text-white disabled:opacity-70 disabled:-translate-y-0 disabled:scale-100"
+                        className="w-full flex justify-center py-4 bg-brand-blue hover:bg-[#0a4f80] text-white rounded-xl text-sm font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-70 disabled:-translate-y-0 disabled:scale-100 disabled:shadow-none disabled:hover:bg-brand-blue"
                       >
                         {applyState.loading ? 'Applying...' : 'Apply Now'}
                       </button>
