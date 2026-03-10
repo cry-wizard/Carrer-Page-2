@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Job = require('../models/Job');
+const Application = require('../models/Application');
 const { protect, admin } = require('../middleware/auth.middleware');
 
 // @route   GET /api/jobs
@@ -15,8 +16,15 @@ router.get('/', async (req, res) => {
     if (type) query.type = { $regex: new RegExp(type, 'i') };
     if (location) query.location = { $regex: new RegExp(location, 'i') };
 
-    const jobs = await Job.find(query).sort({ createdAt: -1 });
-    res.json(jobs);
+    const jobs = await Job.find(query).sort({ createdAt: -1 }).lean();
+    
+    // Attach applicant count to each job
+    const jobsWithCounts = await Promise.all(jobs.map(async (job) => {
+      const applicantCount = await Application.countDocuments({ jobId: job._id });
+      return { ...job, applicantCount };
+    }));
+    
+    res.json(jobsWithCounts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
