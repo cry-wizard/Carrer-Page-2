@@ -4,7 +4,7 @@ require('dotenv').config();
 const User = require('./models/User');
 const Job = require('./models/Job');
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://sidd160306_db_user:Operamini985@cluster0.priryns.mongodb.net/?appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 
 const seedDatabase = async () => {
     try {
@@ -16,7 +16,7 @@ const seedDatabase = async () => {
         if (!admin) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash('admin123', salt);
-            
+
             admin = await User.create({
                 name: 'Demo Admin',
                 email: 'admin@demo.com',
@@ -33,7 +33,7 @@ const seedDatabase = async () => {
         if (!user) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash('user123', salt);
-            
+
             user = await User.create({
                 name: 'Demo User',
                 email: 'user@demo.com',
@@ -47,7 +47,7 @@ const seedDatabase = async () => {
 
         // Add some demo jobs
         await Job.deleteMany({}); // Optional: clear existing jobs first to start fresh
-        
+
         const demoJobs = [
             {
                 title: 'Remote Account Coordinator',
