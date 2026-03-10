@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://carrer-page-2.onrender.com/api',
 });
 
 // Request interceptor to add the auth token header to requests
